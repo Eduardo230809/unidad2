@@ -1,0 +1,59 @@
+import kotlin.math.PI
+fun main() {
+   val Cabina = cabina(3, 20.0)
+   val Torre = torre(3, 15.5)
+   
+    with(Cabina){
+       println("capacidad: ${Capacidad}")
+       println("material: ${material}")
+       println("espacio: ${espacio()} ")
+       println("area: ${areapiso()}")
+       println("cama:: ${cama()}")
+       
+   }
+   
+   with(Torre){
+       println("capacidad: ${Capacidad}")
+       println("material: ${material}")
+       println("espacio: ${espacio()} ")
+       println("area: ${areapiso()}")
+   }
+}
+abstract class Dwelling( private var residents: Int){
+   abstract val material : String
+    abstract val Capacidad : Int
+    
+    fun espacio(): Boolean{
+        return residents<Capacidad
+    }
+    abstract fun areapiso(): Double
+    
+    fun cama() {
+        if (Capacidad>residents){
+            residents++
+            println("tieness cama")
+        }  else {
+                println("no tienes cama")
+            }
+        }
+    
+}
+
+open class cabina(residents:Int, val lado: Double): Dwelling(residents){
+    override val material ="piedra"
+    override val Capacidad= 4
+    val radio = lado/2
+    
+    override fun areapiso (): Double{
+        return PI * radio * radio
+    }
+    
+}
+class torre(residents: Int, lado:Double, val pisos: Int=2): cabina(residents,lado){
+        override val material ="tierra"
+    override val Capacidad= 9
+    
+    override fun areapiso (): Double{
+        return super.areapiso() * pisos
+    }
+    }
